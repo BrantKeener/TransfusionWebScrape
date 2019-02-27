@@ -6,10 +6,10 @@ const cheerio = require('cheerio');
 
 // GET route for our scraping
 module.exports = (app) => {
-  app.get('/scrape', (req, res) => {
+  app.get('/scrape', () => {
     axios.get('https://www.bbguy.org/podcast/').then( (response) => {
       var $ = cheerio.load(response.data);
-      $('div.post-content').each(function(i, element) {
+      $('div.post-content').each(function() {
         const result = {};
         const title = $(this)
           .children('.entry-title')
@@ -47,7 +47,10 @@ module.exports = (app) => {
             .text()
             .substr(1);
         }
-        console.log(result);
+        result.URL = $(this)
+          .children('.entry-title')
+          .children('a')
+          .attr('href');
       });
     });
   });
