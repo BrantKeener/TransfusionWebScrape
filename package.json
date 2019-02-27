@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/BrantKeener/TransfusionWebScrape.git"
   },
-  "keywords": ["Transfusion", "Medicine", "Blood Bank"],
+  "keywords": [
+    "Transfusion",
+    "Medicine",
+    "Blood Bank"
+  ],
   "author": "Brant Keener",
   "license": "ISC",
   "bugs": {
@@ -20,6 +24,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
+    "eslint": "^5.14.1",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
     "mongoose": "^5.4.16"
