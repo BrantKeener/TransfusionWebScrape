@@ -4,15 +4,8 @@
 // axios - our API caller, cheerio - our scraper
 const express = require('express');
 const mongoose = require('mongoose');
-const axios = require('axios');
-const cheerio = require('cheerio');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
-
-// Required folders or files
-const db = require('./models');
-const databaseRoutes = require('./routing/databaseRoutes');
-const scrapeRoute = require('./routing/scrapeRoute');
 
 // Spinup express, and give a port to listen to, and give a mongo URI
 const app = express();
@@ -20,12 +13,14 @@ const PORT = 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/TransfusionScrape';
 
 // Middleware setup
-app.use(morgan({ format: 'dev' }));
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
-app.use(databaseRoutes);
-app.use(scrapeRoute);
+
+// Routes
+// require('./routing/databaseRoutes')(app);
+require('./routing/scrapeRoute')(app);
 
 // Templating engine setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));

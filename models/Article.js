@@ -10,16 +10,11 @@ const ArticleSchema = new Schema ({
     type: String,
     required: true
   },
-  host: {
-    type: String,
-    required: true
-  },
   interviewee: {
     type: String,
-    required: true
   },
   dateReleased: {
-    type: Date
+    type: String
   },
   URL: {
     type: String,
