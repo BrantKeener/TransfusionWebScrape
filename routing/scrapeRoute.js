@@ -22,7 +22,7 @@ const theSorter = (resultArray) => {
 
 // GET function for scraping the web
 module.exports = (app) => {
-  app.get('/scrape', () => {
+  app.get('/scrape', (req, res) => {
     axios.get('https://www.bbguy.org/podcast/').then( (response) => {
       const resultArray = [];
       var $ = cheerio.load(response.data);
@@ -71,8 +71,8 @@ module.exports = (app) => {
         
       });
       theSorter(resultArray)
-        .then((response) => { 
-          db.articleDBUpload(response);
+        .then((req) => { 
+          db.articleDBUpload(req, res);
         });
     });
   });

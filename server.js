@@ -21,10 +21,12 @@ app.use(express.static('public'));
 // Routes
 require('./routing/apiRoutes')(app);
 require('./routing/scrapeRoute')(app);
+require('./routing/htmlRoute')(app);
 
 // Templating engine setup
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+app.set('views', './public/views');
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true});
