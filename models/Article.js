@@ -6,6 +6,10 @@ const Schema = mongoose.Schema;
 
 // Build the new object that will act really similar to a sequelize model
 const ArticleSchema = new Schema ({
+  episodeNumber: {
+    type: Number,
+    required: true
+  },
   title: {
     type: String,
     required: true

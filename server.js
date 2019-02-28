@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes
-// require('./routing/databaseRoutes')(app);
+require('./routing/apiRoutes')(app);
 require('./routing/scrapeRoute')(app);
 
 // Templating engine setup

@@ -1,13 +1,30 @@
 // Build the route for scraping
 
+// TODO make episode number a different entry so that we can sort during build
 // npm packages
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-// GET route for our scraping
+// Database Route
+const db = require('./databaseRoutes');
+
+// A sorting function to be used below
+const theSorter = (resultArray) => {
+  return new Promise((resolve) => {
+    const sortItOut = (a, b) => {
+      const firstCompare = a.episodeNumber;
+      const secondCompare = b.episodeNumber;
+      return firstCompare - secondCompare;
+    };
+    resolve(resultArray.sort(sortItOut));
+  });
+};
+
+// GET function for scraping the web
 module.exports = (app) => {
   app.get('/scrape', () => {
     axios.get('https://www.bbguy.org/podcast/').then( (response) => {
+      const resultArray = [];
       var $ = cheerio.load(response.data);
       $('div.post-content').each(function() {
         const result = {};
@@ -20,14 +37,13 @@ module.exports = (app) => {
           .children('span')
           .text();   
         // Build the object related to our scrape
+        result.episodeNumber = parseInt(title
+          .slice(0, 3));
         result.title = title;
         // This will grab the same data as above, but builds an array split by with
         // Then, it splices out the last element which is the interviewee
         if(title.includes('with')) {
-          result.interviewee = $(this)
-            .children('.entry-title')
-            .children('a')
-            .text()
+          result.interviewee = title
             .split(/with/)
             .slice(-1)[0];
         } else {
@@ -51,7 +67,13 @@ module.exports = (app) => {
           .children('.entry-title')
           .children('a')
           .attr('href');
+        resultArray.push(result);
+        
       });
+      theSorter(resultArray)
+        .then((response) => { 
+          db.articleDBUpload(response);
+        });
     });
   });
 };
