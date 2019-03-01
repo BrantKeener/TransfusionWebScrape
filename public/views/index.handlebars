@@ -1,10 +1,10 @@
-<ul>
+<ul class="article">
   {{#each articles}}
-    <li>{{this.title}}
+    <li class="article-title"><h2>{{this.title}}</h2>
       <ul>
-        <li>{{this.interviewee}}</li>
-        <li>{{this.dateReleased}}</li>
-        <li>{{this.URL}}</li>
+        <li class="article-interviewee">Interviewee: {{this.interviewee}}</li>
+        <li class="article-dateReleased">Date Released: {{this.dateReleased}}</li>
+        <li class="article-URL"><a href="{{this.URL}}" target="_blank">Link to the episode</a></li>
       </ul>
     </li>
   {{/each}}
