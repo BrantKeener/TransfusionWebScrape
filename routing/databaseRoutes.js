@@ -33,7 +33,12 @@ const commentDBUpload = (req, res) => {
 const articleDBDownload = (res) => {
   db.Article.find({})
     .then((dbArticle) => {
-      res.json(dbArticle);
+      dbArticle.sort((a, b) => {
+        const firstCompare = a.episodeNumber;
+        const secondCompare = b.episodeNumber;
+        return firstCompare - secondCompare;
+      });
+      res.render('index', {articles: dbArticle});
     })
     .catch((err) => {
       res.json(err);

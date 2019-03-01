@@ -1,7 +1,10 @@
 // Router for loading up the page
 
+// Require database
+const db = require('./databaseRoutes');
+
 module.exports = (app) => {
   app.get('/', (req, res) => {
-    res.render('index');
+    db.articleDBDownload(res);
   });
 };

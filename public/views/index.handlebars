@@ -1,1 +1,11 @@
-<h2>Blah</h2>
+<ul>
+  {{#each articles}}
+    <li>{{this.title}}
+      <ul>
+        <li>{{this.interviewee}}</li>
+        <li>{{this.dateReleased}}</li>
+        <li>{{this.URL}}</li>
+      </ul>
+    </li>
+  {{/each}}
+</ul>

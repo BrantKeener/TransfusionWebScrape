@@ -8,18 +8,6 @@ const cheerio = require('cheerio');
 // Database Route
 const db = require('./databaseRoutes');
 
-// A sorting function to be used below
-const theSorter = (resultArray) => {
-  return new Promise((resolve) => {
-    const sortItOut = (a, b) => {
-      const firstCompare = a.episodeNumber;
-      const secondCompare = b.episodeNumber;
-      return firstCompare - secondCompare;
-    };
-    resolve(resultArray.sort(sortItOut));
-  });
-};
-
 // GET function for scraping the web
 module.exports = (app) => {
   app.get('/scrape', (req, res) => {
@@ -70,10 +58,7 @@ module.exports = (app) => {
         resultArray.push(result);
         
       });
-      theSorter(resultArray)
-        .then((req) => { 
-          db.articleDBUpload(req, res);
-        });
+      db.articleDBUpload(resultArray, res);
     });
   });
 };
