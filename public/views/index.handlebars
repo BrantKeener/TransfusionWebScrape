@@ -14,13 +14,13 @@
 </section>
 
 {{#each articles}}
-<section data-articleid="{{this._id}}">
+<section class="article-index" data-articleid="{{this._id}}">
   <ul class="article"><a class='modal-open'></a>
       <li class="article-title"><h2>{{this.title}}</h2>
         <ul>
-          <li class="article-interviewee">Interviewee: {{this.interviewee}}</li>
-          <li class="article-summary">{{this.summary}}</li>
-          <li class="article-dateReleased">Date Released: {{this.dateReleased}}</li>
+          <li class="article-interviewee"><h3>Interviewee:</h3> {{this.interviewee}}</li>
+          <li class="article-summary"><h3>Summary:</h3> {{this.summary}}</li>
+          <li class="article-dateReleased"><h3>Date Released:</h3> {{this.dateReleased}}</li>
           <li class="article-URL"><a href="{{this.URL}}" target="_blank">Link to the episode</a></li>
         </ul>
       </li>
