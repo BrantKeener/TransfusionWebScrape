@@ -5,7 +5,7 @@ const db = require('../models');
 // CREATE functionality
 // Add all scraped articles to DB
 const articleDBUpload = (req, res) => {
-  db.Article.create(req)
+  db.Article.update({ episodeNumber: req.episodeNumber }, req, {upsert: true})
     .then(() => {
       res.send('Scraped data uploaded to DB');
     })

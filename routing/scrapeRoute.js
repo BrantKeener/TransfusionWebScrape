@@ -12,7 +12,6 @@ const db = require('./databaseRoutes');
 module.exports = (app) => {
   app.get('/scrape', (req, res) => {
     axios.get('https://www.bbguy.org/podcast/').then( (response) => {
-      const resultArray = [];
       var $ = cheerio.load(response.data);
       $('div.post-content').each(function() {
         const result = {};
@@ -67,10 +66,9 @@ module.exports = (app) => {
         result.URL = $(this)
           .children('.entry-title')
           .children('a')
-          .attr('href');
-        resultArray.push(result); 
+          .attr('href'); 
+        db.articleDBUpload(result, res);
       });
-      db.articleDBUpload(resultArray, res);
     });
   });
 };
