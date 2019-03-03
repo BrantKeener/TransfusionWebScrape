@@ -9,7 +9,7 @@ const exphbs = require('express-handlebars');
 
 // Spinup express, and give a port to listen to, and give a mongo URI
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/TransfusionScrape';
 
 // Middleware setup
