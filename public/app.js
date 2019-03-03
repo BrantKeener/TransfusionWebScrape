@@ -23,21 +23,25 @@ const renderArticle = (data) => {
   // Add an anchor tag to the URL
   URL.appendChild(a);
   URL.setAttribute('id', 'modal-article-URL');
+  URL.setAttribute('class', 'modal-list');
 
   // Build the dateReleased of the articl modal
-  dateReleased.textContent = data.dateReleased;
+  dateReleased.innerHTML = `Released: ${data.dateReleased}`;
   dateReleased.setAttribute('id', 'modal-article-dateReleased');
+  dateReleased.setAttribute('class', 'modal-list');
 
   // Build the summary of the article modal
-  summary.textContent = data.summary;
+  summary.textContent = `Summary: ${data.summary}`;
   summary.setAttribute('id', 'modal-article-summary');
+  summary.setAttribute('class', 'modal-list');
 
   // Build the interviewee of the article modal
-  interviewee.textContent = data.interviewee;
-  interviewee.setAttribute('id', 'modal-article-summary');
+  interviewee.textContent = `Interviewee: ${data.interviewee}`;
+  interviewee.setAttribute('id', 'modal-article-interviewee');
+  interviewee.setAttribute('class', 'modal-list');
 
   // Build the title of the article modal
-  title.textContent = data.title;
+  title.textContent = `Title: ${data.title}`;
   title.setAttribute('id', 'modal-article-title');
 
   // Append everything to the Article portion of the modal
@@ -131,19 +135,17 @@ const renderComment = (data) => {
 document.addEventListener('click', (event) => {
   event.preventDefault();
   const idOrClass = () => {
-    if(event.target.id) {
-      if(event.target.id === 'comment-update') {
-        return { 
-          grab: event.target.id, 
-          articleID: event.target.getAttribute('data-articleid'),
-          data: {
-            'title': event.target.form.title.value,
-            'author': event.target.form.author.value,
-            'body': event.target.form.body.value
-          }
-        };
-      }
-    } else if(event.target.className) {
+    if(event.target.id === 'comment-update') {
+      return { 
+        grab: event.target.id, 
+        articleID: event.target.getAttribute('data-articleid'),
+        data: {
+          'title': event.target.form.title.value,
+          'author': event.target.form.author.value,
+          'body': event.target.form.body.value
+        }
+      };
+    } else if(event.target.className === 'modal-close') {
       return { grab: event.target.className};
     } else {
       return 'No Class or ID';
@@ -163,9 +165,11 @@ document.addEventListener('click', (event) => {
           return response;
         });
     } else if(idOrClass().grab === 'modal-close') {
-      console.log('Close the modal');
+      document.getElementById('modal-bg').classList.toggle('invisible');
+      document.body.classList.toggle('noscroll');
     } else {
-      event.path.forEach(element => {
+      const path = event.composedPath();
+      path.forEach(element => {
         if(element.dataset !== undefined) {
           if('articleid' in element.dataset) {
             fetch(`/comment/${element.dataset.articleid}`)
@@ -175,6 +179,8 @@ document.addEventListener('click', (event) => {
               .then(function(data) {
                 renderArticle(data);
                 renderComment(data);
+                document.getElementById('modal-bg').classList.toggle('invisible');
+                document.body.classList.toggle('noscroll');
               })
               .catch((err) => {
                 return err;

@@ -1,0 +1,122 @@
+/* Root and Body */
+body {
+  margin: 0%;
+  padding: 0%;
+  height: 100h;
+  width: 100vw;
+}
+
+/* HTML tags */
+a {
+  color: inherit;
+}
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input, textarea {
+  font-size: 1.5rem;
+  border-radius: .25rem;
+}
+
+label {
+  margin-top: 5%;
+}
+
+textarea {
+  height: 150px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* ID */
+#article-comment-area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#comment-update {
+  color: white;
+  background-color: rgb(114, 5, 5);
+  margin-top: 5%;
+  padding: 2% 0%;
+  border-radius: .25rem;
+  box-shadow: 0px 0px 15px black;
+  transition: color 1s ease, background-color 1s ease;
+}
+
+#comment-update:hover {
+  background-color: white;
+  color: black;
+}
+
+#modal-article {
+  padding-right: 5%;
+}
+#modal-bg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0%;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(93, 90, 90, 0.74);
+  transition: opacity 1s ease-in-out;
+}
+
+#modal-card {
+  display: grid;
+  grid-template-rows: 1fr 7fr;
+  position: absolute;
+  padding: 2%;
+  background-color: rgb(114, 5, 5);
+  height: 500px;
+  width: 1000px;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 50px black;
+  color: white;
+  text-shadow: 0px 0px 15px black;
+  font-size: 1.5rem;
+  opacity: 1;
+}
+
+#modal-close-button {
+  justify-self: right;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0px 0px 15px black;
+  transition: color 1s ease
+}
+
+#modal-close-button:hover {
+  color: red;
+}
+
+/* Class */
+.invisible {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-list {
+  margin-top: 5%;
+}
+
+.noscroll {
+  overflow: hidden;
+}
