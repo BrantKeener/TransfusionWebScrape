@@ -17,6 +17,9 @@ const ArticleSchema = new Schema ({
   interviewee: {
     type: String,
   },
+  summary: {
+    type: String,
+  },
   dateReleased: {
     type: String
   },

@@ -1,11 +1,26 @@
-<ul class="article">
-  {{#each articles}}
-    <li class="article-title"><h2>{{this.title}}</h2>
-      <ul>
-        <li class="article-interviewee">Interviewee: {{this.interviewee}}</li>
-        <li class="article-dateReleased">Date Released: {{this.dateReleased}}</li>
-        <li class="article-URL"><a href="{{this.URL}}" target="_blank">Link to the episode</a></li>
-      </ul>
-    </li>
-  {{/each}}
-</ul>
+
+<section id="modal-bg">
+  <section id="modal-card">
+    <section id="modal-article">
+      {{!-- Populate the modal from JavaScript --}}
+    </section>
+    <section id="modal-comment">     
+      {{!-- Populate the modal from JavaScript --}}
+    </section>
+  </section>
+</section>
+
+{{#each articles}}
+<section data-articleid="{{this._id}}">
+  <ul class="article"><a class='modal-open'></a>
+      <li class="article-title"><h2>{{this.title}}</h2>
+        <ul>
+          <li class="article-interviewee">Interviewee: {{this.interviewee}}</li>
+          <li class="article-summary">{{this.summary}}</li>
+          <li class="article-dateReleased">Date Released: {{this.dateReleased}}</li>
+          <li class="article-URL"><a href="{{this.URL}}" target="_blank">Link to the episode</a></li>
+        </ul>
+      </li>
+  </ul>
+</section>
+{{/each}}

@@ -20,6 +20,9 @@ module.exports = (app) => {
           .children('.entry-title')
           .children('a')
           .text();
+        const summaryCheck = $(this)
+          .children('.post-data')
+          .text();
         const dateCheck = $(this)
           .children('.post-meta')
           .children('span')
@@ -36,6 +39,16 @@ module.exports = (app) => {
             .slice(-1)[0];
         } else {
           result.interviewee = 'Non-interview episode';
+        }
+        // Summary grab
+        if(summaryCheck !== '') {
+          result.summary = summaryCheck;
+        } else {
+          // Find the children on .post-content, and parse through them
+          result.summary = $(this)
+            .children()[0]
+            .next
+            .data;
         }
         // BBGuy's website does not have a consistent placement for dateReleased
         // This if/else makes up for the inconcistency
@@ -55,8 +68,7 @@ module.exports = (app) => {
           .children('.entry-title')
           .children('a')
           .attr('href');
-        resultArray.push(result);
-        
+        resultArray.push(result); 
       });
       db.articleDBUpload(resultArray, res);
     });

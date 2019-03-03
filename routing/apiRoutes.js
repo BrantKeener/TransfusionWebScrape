@@ -15,7 +15,7 @@ module.exports = (app) => {
 
   // GET route to populate a comment given a specific ID
   app.get('/comment/:id', (req, res) => {
-    db.articleCommentDownload(req, res);
+    db.articleCommentDownload(req, res); 
   });
 
   // POST routes
