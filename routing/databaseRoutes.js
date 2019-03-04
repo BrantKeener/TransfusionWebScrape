@@ -4,14 +4,21 @@ const db = require('../models');
 
 // CREATE functionality
 // Add all scraped articles to DB
-const articleDBUpload = (req, res) => {
-  db.Article.update({ episodeNumber: req.episodeNumber }, req, {upsert: true})
-    .then(() => {
-      res.send('Scraped data uploaded to DB');
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+const articleDBUpload = (articles, res) => {
+  let counter = 0;
+  for(let i = 0; i < articles.length; i++) {
+    db.Article.updateOne({ episodeNumber: articles[i].episodeNumber }, {$set: articles[i]}, {upsert: true})
+      .then(() => {
+        if(counter !== articles.length - 1) {
+          counter++;
+        } else {
+          res.send('Scraped data uploaded to DB');
+        }
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
 };
 
 // Add a comment to the DB, and attach its id to the Article with which it is associated
