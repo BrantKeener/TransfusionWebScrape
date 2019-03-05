@@ -16,7 +16,7 @@ const renderArticle = (data) => {
   modalArticle.innerHTML = '';
 
   // Define our anchor tag
-  a.setAttribute('href', data.URL);
+  a.href = data.URL;
   a.setAttribute('target', '_blank');
   a.textContent = 'Link to the episode';
 
@@ -133,7 +133,10 @@ const renderComment = (data) => {
 
 // An event delegator for our clicks
 document.addEventListener('click', (event) => {
-  event.preventDefault();
+  if(event.target.href) {
+    return 'Link not blocked';
+  } else event.preventDefault();
+  
   const idOrClass = () => {
     if(event.target.id === 'comment-update') {
       return { 
